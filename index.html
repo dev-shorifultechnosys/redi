@@ -1,0 +1,1510 @@
+<!DOCTYPE html><html><head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+        <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Poppins', 'sans-serif'],
+                        },
+                        colors: {
+                            'bubulu-pink': '#FF74D5',
+                            'bubulu-purple': '#A16BFE',
+                            'bubulu-blue': '#64C5FF',
+                            'bubulu-teal': '#33D4C1',
+                            'bubulu-orange': '#FFA764',
+                            'bubulu-yellow': '#FFD166',
+                        },
+                    },
+                },
+            }
+        </script>
+        <style>
+            ::-webkit-scrollbar { display: none;}
+            .gradient-text {
+                background: linear-gradient(90deg, #A16BFE, #FF74D5, #FFA764, #FFD166);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .gradient-button {
+                background-image: linear-gradient(to right, #A16BFE, #FF74D5);
+            }
+            .gradient-button:hover {
+                background-image: linear-gradient(to right, #b186ff, #ff8ee0);
+            }
+            
+            /* Mobile Menu Styles */
+            .mobile-menu {
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+        </style>
+    </head>
+    <body class="bg-[#FCFAFF] font-sans text-gray-700">
+
+        <header id="header" class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+    <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="https://leanlivingjourney.com/wp-content/uploads/2025/11/54C3EF93-A719-4537-910C-87EF379EF1AC.png" width="150px;" height="150px;">
+            <!-- <h1 class="text-2xl sm:text-3xl font-bold gradient-text">BUBULU</h1> -->
+            <i class="fa-solid fa-star text-xs text-bubulu-yellow -mt-4 sm:-mt-5 -ml-1"></i>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-bubulu-purple transition-colors p-2">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+            <a href="#active-draws" class="text-gray-600 hover:text-bubulu-purple transition-colors">Active Draws</a>
+            <a href="#how-it-works" class="text-gray-600 hover:text-bubulu-purple transition-colors">How It Works</a>
+            <a href="#" class="text-gray-600 hover:text-bubulu-purple transition-colors">Winners</a>
+            <a href="#" class="text-gray-600 hover:text-bubulu-purple transition-colors">About</a>
+        </div>
+        
+        <!-- Desktop Auth Section -->
+        <div class="hidden md:flex items-center space-x-4">
+            <div id="user-auth-section">
+                <div id="logged-out-section" class="flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-bubulu-purple font-medium transition-colors" id="login-btn" onclick="openLoginModal()">Login</button>
+                    <a href="#registration" class="px-6 py-2.5 rounded-lg text-white font-semibold gradient-button transition-all duration-300 scroll-smooth">Get a Free Ticket</a>
+                </div>
+                <div id="logged-in-section" class="hidden flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-bubulu-purple to-bubulu-pink flex items-center justify-center">
+                            <i class="fa-solid fa-user text-white text-sm"></i>
+                        </div>
+                        <span class="text-gray-700 font-medium" id="user-name">Welcome back!</span>
+                    </div>
+                    <button class="text-gray-600 hover:text-bubulu-purple font-medium transition-colors" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-full h-full bg-white z-50 md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold gradient-text">BUBULU</h1>
+                    <i class="fa-solid fa-star text-xs text-bubulu-yellow -mt-4 -ml-1"></i>
+                </div>
+                <button id="mobile-menu-close" class="text-gray-600 hover:text-bubulu-purple transition-colors p-2">
+                    <i class="fa-solid fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Auth Section -->
+            <div id="mobile-user-auth-section" class="mb-8 pb-6 border-b border-gray-200">
+                <div id="mobile-logged-out-section">
+                    <button class="w-full py-3 rounded-lg text-white font-semibold gradient-button mb-3" onclick="openLoginModal(); closeMobileMenu();">Login</button>
+                    <a href="#registration" class="block w-full py-3 rounded-lg text-center text-gray-700 font-semibold border border-gray-300 hover:bg-gray-50 transition-colors" onclick="closeMobileMenu()">Get a Free Ticket</a>
+                </div>
+                <div id="mobile-logged-in-section" class="hidden">
+                    <div class="flex items-center space-x-3 mb-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-bubulu-purple to-bubulu-pink flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user text-white"></i>
+                        </div>
+                        <span class="text-gray-700 font-medium" id="mobile-user-name">Welcome back!</span>
+                    </div>
+                    <button class="w-full py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 hover:bg-gray-50 transition-colors" onclick="logout(); closeMobileMenu();">Logout</button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Links -->
+            <nav class="space-y-4">
+                <a href="#active-draws" class="block text-lg text-gray-700 hover:text-bubulu-purple transition-colors py-3" onclick="closeMobileMenu()">Active Draws</a>
+                <a href="#how-it-works" class="block text-lg text-gray-700 hover:text-bubulu-purple transition-colors py-3" onclick="closeMobileMenu()">How It Works</a>
+                <a href="#" class="block text-lg text-gray-700 hover:text-bubulu-purple transition-colors py-3" onclick="closeMobileMenu()">Winners</a>
+                <a href="#" class="block text-lg text-gray-700 hover:text-bubulu-purple transition-colors py-3" onclick="closeMobileMenu()">About</a>
+                <a href="#faq" class="block text-lg text-gray-700 hover:text-bubulu-purple transition-colors py-3" onclick="closeMobileMenu()">FAQ</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative transform transition-all">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-bubulu-purple to-bubulu-pink mb-4">
+                    <i class="fa-solid fa-user text-white text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                <p class="text-gray-500">Sign in to your BUBULU account</p>
+            </div>
+            <form id="login-form" class="space-y-4" onsubmit="handleLogin(event)">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-envelope text-gray-400"></i>
+                        </div>
+                        <input type="email" id="login-email" name="email" placeholder="john@example.com" required="" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bubulu-purple focus:border-transparent transition-all">
+                    </div>
+                </div>
+                <div>
+                    <label for="login-password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required="" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bubulu-purple focus:border-transparent transition-all">
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center cursor-pointer">
+                        <input type="checkbox" id="remember-me" class="rounded border-gray-300 text-bubulu-purple focus:ring-bubulu-purple cursor-pointer">
+                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-bubulu-purple hover:underline">Forgot password?</a>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-lg text-white font-semibold gradient-button transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">Sign In</button>
+            </form>
+            <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">Don't have an account? <a href="#registration" class="text-bubulu-purple hover:underline font-semibold" onclick="closeLoginModal()">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <main>
+            <section id="hero" class="py-12 sm:py-20 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
+                    <div id="hero-content">
+                        <h1 class="text-3xl sm:text-5xl font-bold text-gray-800 leading-tight">Collect, Enter, Win</h1>
+                        <h2 class="text-3xl sm:text-5xl font-bold gradient-text mb-4 sm:mb-6">— Real Labubu Raffles</h2>
+                        <p class="text-gray-500 mb-6 sm:mb-8 max-w-lg text-sm sm:text-base">Join thousands of collectors in the most trusted raffle platform for authentic Labubu figures. Your journey to winning starts with just one free ticket.</p>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 sm:mb-8">
+                            <a href="#registration" class="px-6 sm:px-7 py-3 rounded-lg text-white font-semibold gradient-button transition-all duration-300 flex items-center justify-center space-x-2 scroll-smooth text-center">
+                                <i class="fa-solid fa-ticket"></i>
+                                <span>Get 1 Free Ticket</span>
+                            </a>
+                            <a href="#active-draws" class="px-6 sm:px-7 py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 hover:bg-gray-100 transition-colors scroll-smooth text-center">View Active Draws</a>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-500">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-shield-halved text-green-500"></i>
+                                <span>100% Secure</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-certificate text-blue-500"></i>
+                                <span>Verified Authentic</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-users text-purple-500"></i>
+                                <span>12,8k+ Members</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hero-image" class="h-64 sm:h-96 order-first md:order-last">
+                        <img class="w-full h-full object-cover rounded-2xl" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/1.jpeg" alt="A group of cute, colorful Labubu vinyl toy figures on a dreamy, pastel-colored landscape with stars, whimsical 3D render style">
+                    </div>
+                </div>
+            </section>
+
+            <section id="marketing-points" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
+                            <i class="fa-solid fa-tags text-2xl text-bubulu-pink"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Entries from 20p</h3>
+                        <p class="text-gray-500">Affordable entries for everyone. Start your collection journey without breaking the bank.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
+                            <i class="fa-solid fa-trophy text-2xl text-bubulu-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Winners Every Day</h3>
+                        <p class="text-gray-500">Daily super draws mean more chances to win. New winners announced every single day.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 mb-4">
+                            <i class="fa-solid fa-gem text-2xl text-bubulu-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">100% Authentic</h3>
+                        <p class="text-gray-500">Every Labubu figure is genuine and verified. No fakes, no compromises on quality.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="daily-super-draw" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8 grid md:grid-cols-2 gap-6 sm:gap-8 items-center relative overflow-hidden">
+                        <div class="absolute -top-10 -left-10 w-40 h-40 bg-pink-50 rounded-full opacity-50"></div>
+                        <div class="absolute -bottom-16 -right-10 w-52 h-52 bg-purple-50 rounded-full opacity-50"></div>
+                        <div id="super-draw-image" class="relative z-10 h-80">
+                            <span class="absolute top-4 left-4 bg-pink-100 text-bubulu-pink text-xs font-bold px-3 py-1 rounded-full">Daily Grand Prize</span>
+                            <img class="w-full h-full object-contain" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/3.jpeg" alt="A highly detailed, fluffy black Labubu vinyl toy figure with big expressive eyes, studio lighting, plain background">
+                        </div>
+                        <div id="super-draw-details" class="relative z-10">
+                            <p class="font-semibold text-bubulu-purple mb-2">DAILY SUPER DRAW</p>
+                            <h2 class="text-3xl font-bold text-gray-800 mb-4">Big Into Energy Secret Labubu</h2>
+                            <p class="text-gray-500 mb-4">Exclusive collectible from the highly sought after Big Into Energy series. Complete with certificate of authenticity and premium packaging.</p>
+                            <ul class="space-y-2 text-gray-600 mb-6 text-sm">
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Certificate of Authenticity included</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Premium Gift Box Packaging</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Retail Value: £299.99</li>
+                            </ul>
+                            <div class="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                                <div>
+                                    <p class="text-sm text-gray-500">Draw Closes In</p>
+                                    <p class="font-bold text-2xl text-gray-800" id="super-draw-countdown">23:45:12</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Entry Price</p>
+                                    <p class="text-3xl font-bold text-gray-800">£1.00</p>
+                                </div>
+                            </div>
+                            <button class="w-full mt-6 py-3 rounded-lg text-white font-semibold gradient-button transition-all duration-300 flex items-center justify-center space-x-2" onclick="handleEnterDraw('https://example.com/raffle/super-draw')">
+                                <span>Enter Draw Now</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="active-draws" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="text-center mb-8 sm:mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Active Draws</h2>
+                        <p class="text-gray-500 text-sm sm:text-base">Browse our current collection of authentic Labubu raffles. New draws added daily.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div class="flex overflow-x-auto space-x-2 bg-gray-100 p-1 rounded-lg w-full sm:w-auto" id="filter-buttons">
+                            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-md text-white bg-bubulu-purple" data-filter="all">All Draws</button>
+                            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-md text-gray-600 hover:bg-white" data-filter="featured">Featured</button>
+                            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-md text-gray-600 hover:bg-white" data-filter="ending">Ending Soon</button>
+                            <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-md text-gray-600 hover:bg-white" data-filter="new">New</button>
+                        </div>
+                        <div class="w-full sm:w-auto">
+                            <select class="w-full sm:w-auto border border-gray-300 rounded-lg p-2 text-sm" id="sort-select">
+                                <option value="ending">Sort by: Ending Soon</option>
+                                <option value="newest">Sort by: Newest</option>
+                                <option value="price-low">Sort by: Price Low to High</option>
+                                <option value="price-high">Sort by: Price High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="draws-grid">
+                        <!-- Card 1 -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="ending" data-price="0.50" data-end="11415000">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/8.jpeg" alt="A collection of Labubu Pink Pink Dreams series vinyl toys in their display box, whimsical style">
+                                <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">ENDING SOON</span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <span class="countdown-timer" data-end="11415000">Draw ends in: 3h 15m</span>
+                                    <!-- <span>Left: 78/100</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Pink Dreams Edition</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£0.50</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£79.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-pink-500 to-purple-500 hover:opacity-90 transition-opacity" onclick="handleEnterDraw('https://example.com/raffle/pink-dreams')">Enter Draw</button>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="new" data-price="0.75" data-end="104400000">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/7.jpeg" alt="A collection of Labubu Ocean Breeze series vinyl toys in their blue display box, beach theme">
+                                <span class="absolute top-3 left-3 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <span class="countdown-timer" data-end="104400000">Draw ends in: 1d 4h</span>
+                                    <!-- <span>Left: 89/200</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Ocean Breeze Series</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£0.75</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£84.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-400 to-teal-400 hover:opacity-90 transition-opacity" onclick="handleEnterDraw('https://example.com/raffle/ocean-breeze')">Enter Draw</button>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="all" data-price="1.00" data-end="69720000">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/6.jpeg" alt="A single rare Labubu Galaxy Dreams vinyl toy with iridescent details and starry background">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <span class="countdown-timer" data-end="69720000">Draw ends in: 19h 22m</span>
+                                    <!-- <span>Left: 4/50</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Galaxy Dreams</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£1.00</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£129.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-90 transition-opacity" onclick="handleEnterDraw('https://example.com/raffle/galaxy-dreams')">Enter Draw</button>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="featured" data-price="0.20" data-end="471600000">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/9.jpeg" alt="A cute Labubu figure wearing a red hooded sweatshirt, studio lighting">
+                                <span class="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded-full">FEATURED</span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <span class="countdown-timer" data-end="471600000">Draw ends in: 5d 11h</span>
+                                    <!-- <span>Left: 147/500</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Sunshine Delight</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£0.20</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£89.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-orange-400 to-yellow-400 hover:opacity-90 transition-opacity" onclick="handleEnterDraw('https://example.com/raffle/sunshine-delight')">Enter Draw</button>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="all" data-price="0.55" data-end="202800000">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/2.jpeg" alt="A collection of Labubu figures with a summer and beach theme, pastel mint colors">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <span class="countdown-timer" data-end="202800000">Draw ends in: 2d 8h</span>
+                                    <!-- <span>Left: 178/300</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Mint Fresh Collection</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£0.55</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£74.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-teal-400 to-green-400 hover:opacity-90 transition-opacity" onclick="handleEnterDraw('https://example.com/raffle/mint-fresh')">Enter Draw</button>
+                            </div>
+                        </div>
+                        <!-- Card 6 - Closed -->
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden group draw-card" data-category="all" data-price="0.40" data-end="0">
+                             <div class="h-56 overflow-hidden relative">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/5.jpeg" alt="A Labubu vinyl toy with a coral and sunset color theme, pop art style">
+                                <span class="absolute top-3 right-3 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-full">CLOSED</span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                    <!-- <span>Draw ended</span>
+                                    <span>Left: 0/150</span> -->
+                                </div>
+                                <h3 class="font-semibold text-gray-800 mb-3 truncate">Labubu Coral Sunset</h3>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ticket Price</p>
+                                        <p class="font-bold text-lg text-gray-800">£0.40</p>
+                                    </div>
+                                    <!-- <div>
+                                        <p class="text-xs text-gray-500">Retail Value</p>
+                                        <p class="font-bold text-lg text-gray-400">£99.99</p>
+                                    </div> -->
+                                </div>
+                                <button class="w-full py-2.5 rounded-lg text-white font-semibold bg-gray-400 cursor-not-allowed" disabled="">Raffle Closed</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8 sm:mt-12">
+                        <a href="#" class="inline-block px-6 sm:px-7 py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 hover:bg-gray-100 transition-colors">View All Active Draws</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- <section id="how-it-works" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="text-center mb-8 sm:mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">How BUBULU Works</h2>
+                        <p class="text-gray-500 text-sm sm:text-base">Simple, secure, and transparent. Join thousands of collectors in just four easy steps.</p>
+                    </div>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-user-plus text-bubulu-pink"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">Create Account</h3>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-3">Sign up in seconds with your email. Receive your unique voucher code instantly for exclusive benefits.</p>
+                            <ul class="text-xs text-gray-500 space-y-1">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Free registration</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Instant voucher code</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Secure &amp; GDPR-compliant</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-search text-bubulu-purple"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">Browse Draws</h3>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-3">Explore our curated collection of authentic Labubu raffles. Filter by price, ending date, or featured items.</p>
+                            <ul class="text-xs text-gray-500 space-y-1">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Daily new draws</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Real-time countdowns</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Verified authenticity</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-ticket-alt text-bubulu-blue"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">Enter Raffle</h3>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-3">Click to enter any draw through our trusted partner platform. Entries start from just 20p.</p>
+                            <ul class="text-xs text-gray-500 space-y-1">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Secure payment</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Multiple entries allowed</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Instant confirmation</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-gift text-bubulu-yellow"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">Win &amp; Collect</h3>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-3">Winners announced daily. Get notified instantly and receive your authentic Labubu with fast shipping.</p>
+                            <ul class="text-xs text-gray-500 space-y-1">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Email notification</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Free UK delivery</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Certificate included</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <section id="how-it-works" class="py-24 bg-gray-50/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-extrabold gradient-text">How BUBULU Works</h2>
+                    <p class="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">Simple, secure, and transparent. Join thousands of collectors in just four easy steps.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div id="step-1" class="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/50">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 font-bold text-xl">1</div>
+                            <div class="w-12 h-12 rounded-full bg-pink-100/50 flex items-center justify-center"><i class="fa-solid fa-user-plus text-xl text-pink-500"></i></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3">Create Account</h3>
+                        <p class="text-brand-gray mb-4">Sign up in seconds with your email. Receive your unique voucher code instantly for exclusive benefits.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Free registration</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Instant voucher code</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Secure & GDPR compliant</li>
+                        </ul>
+                    </div>
+                    <!-- Step 2 -->
+                    <div id="step-2" class="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/50">
+                       <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 font-bold text-xl">2</div>
+                            <div class="w-12 h-12 rounded-full bg-purple-100/50 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass text-xl text-purple-500"></i></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3">Browse Draws</h3>
+                        <p class="text-brand-gray mb-4">Explore our curated collection of authentic Labubu raffles. Filter by price, ending date, or featured items.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Daily new draws</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Real-time countdowns</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Verified authenticity</li>
+                        </ul>
+                    </div>
+                    <!-- Step 3 -->
+                    <div id="step-3" class="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/50">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-sky-500 font-bold text-xl">3</div>
+                            <div class="w-12 h-12 rounded-full bg-sky-100/50 flex items-center justify-center"><i class="fa-solid fa-ticket-simple text-xl text-sky-500"></i></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3">Enter Raffle</h3>
+                        <p class="text-brand-gray mb-4">Click to enter any draw through our trusted partner platform. Entries start from just 20p.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Secure payment</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Multiple entries allowed</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Instant confirmation</li>
+                        </ul>
+                    </div>
+                    <!-- Step 4 -->
+                    <div id="step-4" class="bg-white p-8 rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/50">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-500 font-bold text-xl">4</div>
+                            <div class="w-12 h-12 rounded-full bg-amber-100/50 flex items-center justify-center"><i class="fa-solid fa-gifts text-xl text-amber-500"></i></div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3">Win & Collect</h3>
+                        <p class="text-brand-gray mb-4">Winners announced daily. Get notified instantly and receive your authentic Labubu with fast shipping.</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Email notification</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Free UK delivery</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Certificate included</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+            
+            <section id="registration" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row overflow-hidden">
+                        <div id="registration-info" class="w-full md:w-2/5 p-6 sm:p-10 bg-gradient-to-br from-pink-50 to-purple-50 flex flex-col justify-center">
+                            <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full self-start mb-4">LIMITED TIME OFFER</span>
+                            <h2 class="text-3xl font-bold text-gray-800 mb-4">Get Your Free Ticket Now</h2>
+                            <p class="text-gray-600 mb-6">Join BUBULU today and receive a complimentary entry voucher, no credit card required. Start your collection journey with a free win!</p>
+                            <ul class="space-y-3 text-gray-700 mb-8">
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-bubulu-purple mr-3"></i> Instant voucher code generation</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-bubulu-purple mr-3"></i> Access to all raffle draws</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-bubulu-purple mr-3"></i> Daily winner notifications</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check-circle text-bubulu-purple mr-3"></i> Secure member only area</li>
+                            </ul>
+                            <a href="#active-draws" class="px-6 py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 hover:bg-gray-100 transition-colors self-start flex items-center space-x-2 scroll-smooth">
+                                <span>Browse Active Draws</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div id="registration-form" class="w-full md:w-3/5 p-6 sm:p-10">
+                            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">Quick Registration</h3>
+                            <form class="space-y-3 sm:space-y-4" id="registration-form-element">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label for="first-name" class="block text-sm font-medium text-gray-600 mb-1">First Name*</label>
+            <input type="text" id="first-name" name="firstName" placeholder="John" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+        </div>
+        <div>
+            <label for="last-name" class="block text-sm font-medium text-gray-600 mb-1">Last Name*</label>
+            <input type="text" id="last-name" name="lastName" placeholder="Smith" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+        </div>
+    </div>
+    <div>
+        <label for="address1" class="block text-sm font-medium text-gray-600 mb-1">Address Line 1*</label>
+        <input type="text" id="address1" name="address1" placeholder="123 Main Street" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+    </div>
+    <div>
+        <label for="address2" class="block text-sm font-medium text-gray-600 mb-1">Address Line 2 (Optional)</label>
+        <input type="text" id="address2" name="address2" placeholder="Apartment, suite, etc." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label for="town-city" class="block text-sm font-medium text-gray-600 mb-1">Town/City*</label>
+            <input type="text" id="town-city" name="town" placeholder="London" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+        </div>
+        <div>
+            <label for="postcode" class="block text-sm font-medium text-gray-600 mb-1">Postcode*</label>
+            <input type="text" id="postcode" name="postcode" placeholder="SW1A 0AA" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+        </div>
+    </div>
+    <div>
+        <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email Address*</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+    </div>
+    <div>
+        <label for="mobile" class="block text-sm font-medium text-gray-600 mb-1">Mobile Number*</label>
+        <input type="tel" id="mobile" name="mobile" placeholder="07123 456789" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple">
+    </div>
+    <div>
+        <label for="dob" class="block text-sm font-medium text-gray-600 mb-1">Date of Birth*</label>
+        <input type="date" id="dob" name="dob" required="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-bubulu-purple focus:border-bubulu-purple text-gray-500">
+    </div>
+    <div class="flex items-start">
+        <input type="checkbox" id="terms" name="terms" required="" class="h-4 w-4 mt-1 text-bubulu-purple border-gray-300 rounded focus:ring-bubulu-purple">
+        <label for="terms" class="ml-2 text-sm text-gray-600">I agree to the <a href="#" class="text-bubulu-purple hover:underline">Terms &amp; Conditions</a> and <a href="#" class="text-bubulu-purple hover:underline">Privacy Policy</a>. I certify I am 18+ years of age.*</label>
+    </div>
+    <button type="submit" class="w-full py-3 rounded-lg text-white font-semibold gradient-button transition-all duration-300">Get My Free Ticket</button>
+    <p class="text-xs text-gray-400 text-center">* Required Fields</p>
+</form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recent-winners" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-extrabold gradient-text">Recent Winners</h2>
+                    <p class="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">Real people, real wins. Join our growing community of lucky collectors celebrating their authentic Labubu prizes every day.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Winner 1 -->
+                    <div id="winner-card-1" class="bg-white rounded-2xl shadow-lg shadow-gray-200/50 overflow-hidden">
+                       <div class="h-64 overflow-hidden">
+                           <img class="w-full h-full object-cover" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/1.png" alt="a happy woman in her 20s proudly holding a large, rare Labubu figure outdoors at a festival, candid shot" />
+                       </div>
+                       <div class="p-6">
+                           <div class="flex items-center gap-4 mb-4">
+                               <img src="https://leanlivingjourney.com/wp-content/uploads/2025/10/images-4.jpeg" class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                               <div>
+                                   <h4 class="font-bold text-brand-dark">Sarah M.</h4>
+                                   <p class="text-sm text-gray-500">London, UK</p>
+                               </div>
+                           </div>
+                           <p class="text-brand-gray text-sm mb-4">"Won the Pink Dreams Edition! Can't believe I finally got my dream Labubu. The quality is amazing and shipping was super fast!"</p>
+                           <div class="flex justify-between items-center text-xs text-gray-400 border-t border-gray-100 pt-3">
+                               <span>Prize Value: £79.99</span>
+                               <span>2 days ago</span>
+                           </div>
+                       </div>
+                    </div>
+                    <!-- Winner 2 -->
+                    <div id="winner-card-2" class="bg-white rounded-2xl shadow-lg shadow-gray-200/50 overflow-hidden">
+                       <div class="h-64 overflow-hidden">
+                           <img class="w-full h-full object-cover" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/2.png" alt="a cheerful couple in their 30s holding a collection of Galaxy Dreams Labubu figures, smiling at the camera" />
+                       </div>
+                       <div class="p-6">
+                           <div class="flex items-center gap-4 mb-4">
+                               <img src="https://leanlivingjourney.com/wp-content/uploads/2025/10/images-3.jpeg" class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                               <div>
+                                   <h4 class="font-bold text-brand-dark">James T.</h4>
+                                   <p class="text-sm text-gray-500">Manchester, UK</p>
+                               </div>
+                           </div>
+                           <p class="text-brand-gray text-sm mb-4">"My first win on BUBULU! The Galaxy Dreams edition is even more beautiful in person. Totally worth the 20p entry!"</p>
+                           <div class="flex justify-between items-center text-xs text-gray-400 border-t border-gray-100 pt-3">
+                               <span>Prize Value: £129.99</span>
+                               <span>5 days ago</span>
+                           </div>
+                       </div>
+                    </div>
+                    <!-- Winner 3 -->
+                    <div id="winner-card-3" class="bg-white rounded-2xl shadow-lg shadow-gray-200/50 overflow-hidden">
+                       <div class="h-64 overflow-hidden">
+                           <img class="w-full h-full object-cover" src="https://leanlivingjourney.com/wp-content/uploads/2025/11/3.png" alt="an excited asian woman holding a certificate of authenticity next to her new Ocean Breeze Labubu figure" />
+                       </div>
+                       <div class="p-6">
+                           <div class="flex items-center gap-4 mb-4">
+                               <img src="https://leanlivingjourney.com/wp-content/uploads/2025/10/images-6.jpeg" class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                               <div>
+                                   <h4 class="font-bold text-brand-dark">Emma L.</h4>
+                                   <p class="text-sm text-gray-500">Birmingham, UK</p>
+                               </div>
+                           </div>
+                           <p class="text-brand-gray text-sm mb-4">"Third win this month! BUBULU is legit. Love how transparent the process is and the figures are 100% authentic."</p>
+                           <div class="flex justify-between items-center text-xs text-gray-400 border-t border-gray-100 pt-3">
+                               <span>Prize Value: £84.99</span>
+                               <span>1 week ago</span>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="community-stats" class="pb-24 -mt-8">
+            <div class="container mx-auto px-6">
+                <div class="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div id="stats-members">
+                        <p class="text-4xl font-extrabold gradient-text">12,847+</p>
+                        <p class="text-brand-gray font-semibold mt-2">Active Members</p>
+                    </div>
+                    <div id="stats-winners">
+                        <p class="text-4xl font-extrabold gradient-text">3,456</p>
+                        <p class="text-brand-gray font-semibold mt-2">Total Winners</p>
+                    </div>
+                    <div id="stats-prizes">
+                        <p class="text-4xl font-extrabold gradient-text">£284K+</p>
+                        <p class="text-brand-gray font-semibold mt-2">Prizes Awarded</p>
+                    </div>
+                    <div id="stats-rating">
+                        <p class="text-4xl font-extrabold gradient-text">4.9/5</p>
+                        <p class="text-brand-gray font-semibold mt-2">Trust Rating</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trust-priority" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <div class="inline-block bg-red-100 text-red-600 font-bold px-3 py-1 rounded-full text-xs mb-3">SECURITY & COMPLIANCE</div>
+                        <h2 class="text-4xl font-extrabold text-brand-dark mb-4">Your Trust is Our <span class="gradient-text">Priority</span></h2>
+                        <p class="text-brand-gray mb-8">We take security, privacy, and authenticity seriously. Every aspect of BUBULU is designed with your protection in mind.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-full bg-pink-100/50 flex items-center justify-center"><i class="fa-solid fa-shield-halved text-xl text-pink-500"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">GDPR Compliant</h4>
+                                    <p class="text-brand-gray text-sm">Full compliance with UK and EU data protection regulations. Your data is encrypted, secure, and never shared without consent.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-full bg-purple-100/50 flex items-center justify-center"><i class="fa-solid fa-credit-card text-xl text-purple-500"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Secure Payments</h4>
+                                    <p class="text-brand-gray text-sm">Bank-level encryption for all transactions. We never store your payment details on our servers.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-full bg-teal-100/50 flex items-center justify-center"><i class="fa-solid fa-gem text-xl text-teal-500"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Verified Authenticity</h4>
+                                    <p class="text-brand-gray text-sm">Every Labubu figure is genuine and comes with a certificate of authenticity. We source directly from authorized distributors.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-full bg-sky-100/50 flex items-center justify-center"><i class="fa-solid fa-id-card text-xl text-sky-500"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Age Verification</h4>
+                                    <p class="text-brand-gray text-sm">Strict 18+ registration policy with automated age verification to ensure responsible participation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-2xl shadow-purple-200/40">
+                        <div class="space-y-6">
+                            <div class="p-5 rounded-xl bg-gray-50/80 border border-gray-200/60">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-lock text-purple-500 text-lg"></i>
+                                    <div>
+                                        <h5 class="font-bold text-brand-dark">SSL Encrypted</h5>
+                                        <p class="text-sm text-brand-gray">All data transmitted through 256-bit SSL encryption.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 rounded-xl bg-gray-50/80 border border-gray-200/60">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-brands fa-cc-visa text-purple-500 text-lg"></i>
+                                    <div>
+                                        <h5 class="font-bold text-brand-dark">PCI-DSS Compliant</h5>
+                                        <p class="text-sm text-brand-gray">Payment Card Industry Data Security Standard verified.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 rounded-xl bg-gray-50/80 border border-gray-200/60">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-user-shield text-purple-500 text-lg"></i>
+                                    <div>
+                                        <h5 class="font-bold text-brand-dark">Regular Audits</h5>
+                                        <p class="text-sm text-brand-gray">Third-party security audits conducted quarterly.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 rounded-xl bg-gray-50/80 border border-gray-200/60">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-database text-purple-500 text-lg"></i>
+                                    <div>
+                                        <h5 class="font-bold text-brand-dark">Data Protection</h5>
+                                        <p class="text-sm text-brand-gray">Right to access, export, or delete your data at any time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            
+            <!-- <section id="faq" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Frequently Asked Questions</h2>
+                        <p class="text-gray-500">Everything you need to know about BUBULU raffles, and winning authentic Labubu collectibles.</p>
+                    </div>
+                    <div class="space-y-4" id="faq-accordion">
+                        <div class="faq-item bg-white rounded-lg border border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800">
+                                <span>How does BUBULU work?</span>
+                                <i class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                                BUBULU is a raffle platform that connects you with authentic Labubu draws hosted by our trusted partners. Simply register for free, receive your unique voucher code, browse active draws, and click to enter through our partner's secure platform. We list genuine raffles and make it easy for collectors to participate.
+                            </div>
+                        </div>
+                        <div class="faq-item bg-white rounded-lg border border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800">
+                                <span>Are the Labubu figures authentic?</span>
+                                <i class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                                Absolutely. We guarantee that every single item listed on BUBULU is 100% authentic and sourced from verified suppliers. We have a zero-tolerance policy for counterfeit goods.
+                            </div>
+                        </div>
+                         <div class="faq-item bg-white rounded-lg border border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800">
+                                <span>Do I need to be 18 to register?</span>
+                                <i class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                                Yes. All participants must be 18 years of age or older. We perform age verification checks during registration to ensure compliance with legal regulations.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <section id="trust-and-faq" class="py-24 bg-gray-50/50">
+            <div class="container mx-auto px-6">
+                <div id="faq" class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-extrabold gradient-text">Frequently Asked Questions</h2>
+                        <p class="text-lg text-brand-gray mt-2">Everything you need to know about BUBULU, raffles, and winning authentic Labubu collectibles.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>How does BUBULU work?</span>
+                                <i class="fa-solid fa-minus text-purple-500"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: block;">
+                                <p>BUBULU is a raffle platform that connects you with authentic Labubu draws hosted by our trusted partners. Simply register for free, receive your unique voucher code, browse active draws, and click to enter through our partner's secure platform. We list genuine raffles and make it easy for collectors to participate.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>Are the Labubu figures authentic?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>Yes! Every Labubu figure on BUBULU is 100% authentic and sourced from authorized distributors. Each prize comes with a certificate of authenticity and premium packaging. We verify all our partner raffles to ensure you receive genuine products.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>What is the voucher code for?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>When you register on BUBULU, we generate a unique voucher code for you. This code can be used for special promotions and exclusive member benefits with our raffle partners. Your code is deterministic based on your email and remains the same for your account.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>How much do entries cost?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>Entry prices start from just 20p per ticket, making it affordable for everyone. Prices vary depending on the value and rarity of the Labubu figure. You can purchase multiple entries to increase your chances of winning.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>When are winners announced?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>Winners are announced daily when each draw closes. You'll receive an instant email notification if you win, along with instructions for claiming your prize. Winners are also featured on our website and social media channels.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>Is my personal data safe?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>Yes, your data is completely secure. We are fully GDPR compliant and use bank-level encryption for all data transmission. We never share your personal information without explicit consent. You have the right to access, export, or delete your data at any time through your account settings.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>Do I need to be 18 to register?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>Yes, you must be 18 years or older to create a BUBULU account and participate in raffles. We verify age during registration by requiring your date of birth. This ensures responsible participation and complies with UK gambling and raffle regulations.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200/80">
+                            <button data-faq-toggle class="w-full flex justify-between items-center p-6 text-left font-bold text-brand-dark">
+                                <span>How is shipping handled?</span>
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                            </button>
+                            <div data-faq-content class="px-6 pb-6 text-brand-gray" style="display: none;">
+                                <p>All prizes are shipped by our raffle partner directly to the winner's registered address. UK shipping is free for all prizes. International shipping may be available depending on the draw. Winners typically receive their Labubu within 5-7 business days, complete with tracking information.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            <!-- <section id="cta" class="py-12 sm:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 p-8 sm:p-12 text-center text-white">
+                        <div class="flex justify-center items-center space-x-2 mb-4">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="font-semibold text-sm sm:text-base">Join 12,847+ Labubu Collectors</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-bold mb-4">Start Your Labubu Collection Today</h2>
+                        <p class="max-w-2xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">Register now and get your free entry voucher. No Credit Card required. Winners announced daily. Your next prized collectible is just a click away.</p>
+                        <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4">
+                            <a href="#registration" class="px-6 sm:px-7 py-3 rounded-lg bg-white text-bubulu-purple font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2 scroll-smooth">
+                                <i class="fa-solid fa-ticket"></i>
+                                <span>Get 1 Free Ticket</span>
+                            </a>
+                            <a href="#active-draws" class="px-6 sm:px-7 py-3 rounded-lg text-white font-semibold border border-white/50 hover:bg-white/10 transition-colors scroll-smooth">Browse Active Draws</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer id="footer" class="bg-white border-t border-gray-200 pt-12 sm:pt-16 pb-6 sm:pb-8">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
+                    <div class="col-span-2">
+                        <div class="flex items-center mb-4">
+                             <h1 class="text-3xl font-bold gradient-text">BUBULU</h1>
+                             <i class="fa-solid fa-star text-xs text-bubulu-yellow -mt-5 -ml-1"></i>
+                        </div>
+                        <p class="text-gray-500 mb-6 max-w-sm">Your trusted platform for authentic Labubu raffles. Join thousands of collectors winning genuine figures every day.</p>
+                        <div class="flex space-x-4 text-gray-400">
+                            <a href="#" class="hover:text-bubulu-purple"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" class="hover:text-bubulu-purple"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" class="hover:text-bubulu-purple"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-gray-500">
+                            <li><a href="#active-draws" class="hover:text-bubulu-purple">Active Draws</a></li>
+                            <li><a href="#how-it-works" class="hover:text-bubulu-purple">How It Works</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Winners</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">About Us</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Contact</a></li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4 class="font-semibold text-gray-800 mb-4">Support</h4>
+                        <ul class="space-y-2 text-gray-500">
+                            <li><a href="#" class="hover:text-bubulu-purple">FAQ</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Help Center</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Shipping Info</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Returns</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Track Order</a></li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4 class="font-semibold text-gray-800 mb-4">Legal</h4>
+                        <ul class="space-y-2 text-gray-500">
+                            <li><a href="#" class="hover:text-bubulu-purple">Terms &amp; Conditions</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Cookie Policy</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">GDPR</a></li>
+                            <li><a href="#" class="hover:text-bubulu-purple">Data Export</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 text-center text-xs text-gray-500">
+                    <p>Bubulu is owned and operated by Star Online Media Limited, an independent reseller of genuine Labubu products. Bubulu is not affiliated with or endorsed by Pop Mart or its brands.</p>
+                    <p class="mt-2">© 2024 BUBULU by Star Online Media Limited. All rights reserved.</p>
+                </div>
+            </div>
+        </footer> -->
+        <footer id="footer" class="bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6 pt-16 pb-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div class="col-span-2">
+                    <img src="https://leanlivingjourney.com/wp-content/uploads/2025/11/54C3EF93-A719-4537-910C-87EF379EF1AC.png" width="150px;" height="150px;">
+                    <!-- <h3 class="text-3xl font-extrabold gradient-text mb-4">BUBULU</h3> -->
+                    <p class="text-brand-gray max-w-sm mb-6">Your trusted platform for authentic Labubu raffles. Join thousands of collectors winning genuine figures every day.</p>
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-pink-500 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-pink-500 hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-pink-500 hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-brand-dark mb-4">Quick Links</h4>
+                    <ul class="space-y-3 text-brand-gray">
+                        <li><a href="#active-draws" class="hover:text-pink-500">Active Draws</a></li>
+                        <li><a href="#how-it-works" class="hover:text-pink-500">How It Works</a></li>
+                        <li><a href="#recent-winners" class="hover:text-pink-500">Winners</a></li>
+                        <li><a href="#trust-priority" class="hover:text-pink-500">About Us</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Contact</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-bold text-brand-dark mb-4">Support</h4>
+                    <ul class="space-y-3 text-brand-gray">
+                        <li><a href="#" class="hover:text-pink-500">FAQ</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Help Center</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Returns</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Track Order</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-bold text-brand-dark mb-4">Legal</h4>
+                    <ul class="space-y-3 text-brand-gray">
+                        <li><a href="#" class="hover:text-pink-500">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-pink-500">GDPR</a></li>
+                        <li><a href="#" class="hover:text-pink-500">Data Export</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-100 pt-8">
+                <p class="text-xs text-gray-400 mb-4"><strong>Legal Disclaimer:</strong> Bubulu is owned and operated by Star Online Media Limited, an independent reseller of genuine Labubu products. Bubulu is not affiliated with or endorsed by Pop Mart or its brands.</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm text-gray-500">&copy; 2025 BUBULU by Star Online Media Limited. All rights reserved.</p>
+                    <div class="flex items-center space-x-4">
+                        <i class="fa-brands fa-cc-visa text-2xl text-gray-400"></i>
+                        <i class="fa-brands fa-cc-mastercard text-2xl text-gray-400"></i>
+                        <i class="fa-brands fa-cc-paypal text-2xl text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Functions
+        function openMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Update mobile auth UI
+        function updateMobileAuthUI(user) {
+            const loggedOutSection = document.getElementById('mobile-logged-out-section');
+            const loggedInSection = document.getElementById('mobile-logged-in-section');
+            const userName = document.getElementById('mobile-user-name');
+            
+            if (user && user.loggedIn) {
+                loggedOutSection.classList.add('hidden');
+                loggedInSection.classList.remove('hidden');
+                userName.textContent = `Hi, ${user.firstName}!`;
+            } else {
+                loggedOutSection.classList.remove('hidden');
+                loggedInSection.classList.add('hidden');
+            }
+        }
+
+        // Update Authentication UI (both desktop and mobile)
+        function updateAuthUI(user) {
+            const loggedOutSection = document.getElementById('logged-out-section');
+            const loggedInSection = document.getElementById('logged-in-section');
+            const userName = document.getElementById('user-name');
+            
+            if (user && user.loggedIn) {
+                loggedOutSection.classList.add('hidden');
+                loggedInSection.classList.remove('hidden');
+                userName.textContent = `Hi, ${user.firstName}!`;
+            } else {
+                loggedOutSection.classList.remove('hidden');
+                loggedInSection.classList.add('hidden');
+            }
+            
+            // Update mobile UI as well
+            updateMobileAuthUI(user);
+        }
+
+        // Login Modal Functions
+        function openLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Add animation
+            setTimeout(() => {
+                modal.querySelector('.bg-white').style.transform = 'scale(1)';
+                modal.querySelector('.bg-white').style.opacity = '1';
+            }, 10);
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('login-form').reset();
+        }
+
+        // Handle Login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            
+            // Get stored user data
+            const storedUser = localStorage.getItem('bubulu_user');
+            
+            if (!storedUser) {
+                alert('No account found with this email. Please register first.');
+                closeLoginModal();
+                document.getElementById('registration').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            
+            const userData = JSON.parse(storedUser);
+            
+            // Simple validation (in production, this would be server-side)
+            if (userData.email.toLowerCase() !== email) {
+                alert('Invalid email or password. Please try again.');
+                return;
+            }
+            
+            // Store login state
+            const loginData = {
+                ...userData,
+                loggedIn: true,
+                loginTime: new Date().toISOString(),
+                rememberMe: rememberMe
+            };
+            
+            localStorage.setItem('bubulu_user', JSON.stringify(loginData));
+            if (rememberMe) {
+                localStorage.setItem('bubulu_remember', 'true');
+            }
+            
+            // Update UI
+            updateAuthUI(userData);
+            
+            // Close modal
+            closeLoginModal();
+            
+            // Show success message
+            alert(`Welcome back, ${userData.firstName}! You can now enter all active draws.`);
+        }
+
+        // Logout Function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                const userData = JSON.parse(localStorage.getItem('bubulu_user'));
+                const rememberMe = localStorage.getItem('bubulu_remember');
+                
+                if (rememberMe) {
+                    // Keep user data but mark as logged out
+                    userData.loggedIn = false;
+                    localStorage.setItem('bubulu_user', JSON.stringify(userData));
+                } else {
+                    // Remove all data
+                    localStorage.removeItem('bubulu_user');
+                    localStorage.removeItem('bubulu_remember');
+                }
+                
+                // Update UI
+                updateAuthUI(null);
+                
+                alert('You have been logged out successfully.');
+            }
+        }
+
+        // Check login status on page load
+        function checkLoginStatus() {
+            const userData = localStorage.getItem('bubulu_user');
+            if (userData) {
+                const user = JSON.parse(userData);
+                if (user.loggedIn) {
+                    updateAuthUI(user);
+                }
+            }
+        }
+
+        // Smooth scroll functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.length > 1) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Countdown timer function
+        function updateCountdown(element, endTime) {
+            const now = Date.now();
+            const remaining = endTime - now;
+            
+            if (remaining <= 0) {
+                element.textContent = 'Draw ended';
+                return false;
+            }
+            
+            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (days > 0) {
+                element.textContent = `Draw ends in: ${days}d ${hours}h`;
+            } else if (hours > 0) {
+                element.textContent = `Draw ends in: ${hours}h ${minutes}m`;
+            } else {
+                element.textContent = `Draw ends in: ${minutes}m`;
+            }
+            
+            return true;
+        }
+
+        // Initialize all countdown timers
+        function initCountdowns() {
+            const timers = document.querySelectorAll('.countdown-timer');
+            timers.forEach(timer => {
+                const endTime = parseInt(timer.dataset.end);
+                if (endTime > 0) {
+                    updateCountdown(timer, Date.now() + endTime);
+                    setInterval(() => updateCountdown(timer, Date.now() + endTime), 60000);
+                }
+            });
+            
+            // Super draw countdown
+            const superDrawTimer = document.getElementById('super-draw-countdown');
+            if (superDrawTimer) {
+                const superDrawEnd = Date.now() + 85512000;
+                function updateSuperDraw() {
+                    const now = Date.now();
+                    const remaining = superDrawEnd - now;
+                    
+                    if (remaining <= 0) {
+                        superDrawTimer.textContent = 'DRAW CLOSED';
+                        superDrawTimer.classList.add('text-red-500');
+                        return;
+                    }
+                    
+                    const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+                    
+                    superDrawTimer.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+                
+                updateSuperDraw();
+                setInterval(updateSuperDraw, 1000);
+            }
+        }
+
+        // Filter functionality
+        function initFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const drawCards = document.querySelectorAll('.draw-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-bubulu-purple', 'text-white');
+                        btn.classList.add('text-gray-600');
+                    });
+                    this.classList.add('bg-bubulu-purple', 'text-white');
+                    this.classList.remove('text-gray-600');
+                    
+                    const filter = this.dataset.filter;
+                    
+                    drawCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Sort functionality
+        function initSort() {
+            const sortSelect = document.getElementById('sort-select');
+            const drawsGrid = document.getElementById('draws-grid');
+            
+            sortSelect.addEventListener('change', function() {
+                const sortValue = this.value;
+                const cards = Array.from(drawsGrid.querySelectorAll('.draw-card'));
+                
+                cards.sort((a, b) => {
+                    switch(sortValue) {
+                        case 'ending':
+                            return parseInt(a.dataset.end) - parseInt(b.dataset.end);
+                        case 'newest':
+                            return parseInt(b.dataset.end) - parseInt(a.dataset.end);
+                        case 'price-low':
+                            return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                        case 'price-high':
+                            return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                cards.forEach(card => drawsGrid.appendChild(card));
+            });
+        }
+
+        // Handle enter draw button clicks
+        function handleEnterDraw(url) {
+            const userData = localStorage.getItem('bubulu_user');
+            
+            if (!userData) {
+                alert('Please register or login to enter draws');
+                document.getElementById('registration').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            
+            const user = JSON.parse(userData);
+            if (!user.loggedIn) {
+                alert('Please login to enter draws');
+                openLoginModal();
+                return;
+            }
+            
+            window.open(url, '_blank');
+        }
+
+        // MD5 hash function for voucher code
+        function generateVoucherCode(email) {
+            email = email.toLowerCase().trim();
+            let hash = 0;
+            for (let i = 0; i < email.length; i++) {
+                const char = email.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            const hashStr = Math.abs(hash).toString(16).toUpperCase();
+            return hashStr.substring(0, 12).padEnd(12, '0');
+        }
+
+        // Form submission
+        function initRegistration() {
+            const form = document.getElementById('registration-form-element');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const email = formData.get('email');
+                const dob = new Date(formData.get('dob'));
+                const today = new Date();
+                const age = today.getFullYear() - dob.getFullYear();
+                
+                if (age < 18) {
+                    alert('You must be 18 or older to register');
+                    return;
+                }
+                
+                const voucherCode = generateVoucherCode(email);
+                
+                const userData = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: email,
+                    voucherCode: voucherCode,
+                    registeredAt: new Date().toISOString(),
+                    loggedIn: true
+                };
+                
+                localStorage.setItem('bubulu_user', JSON.stringify(userData));
+                
+                updateAuthUI(userData);
+                
+                alert(`Registration successful! Your voucher code is: ${voucherCode}\n\nYou are now logged in and can enter all active draws!`);
+                
+                form.reset();
+                
+                document.getElementById('active-draws').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // FAQ Accordion
+        document.addEventListener('DOMContentLoaded', function () {
+            checkLoginStatus();
+            initCountdowns();
+            initFilters();
+            initSort();
+            initRegistration();
+            
+            const accordionItems = document.querySelectorAll('.faq-item');
+
+            accordionItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = question.querySelector('i');
+
+                question.addEventListener('click', () => {
+                    const isVisible = !answer.classList.contains('hidden');
+                    
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.faq-answer').classList.add('hidden');
+                            otherItem.querySelector('.faq-question i').classList.remove('rotate-180');
+                        }
+                    });
+
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+            
+            // Close modal on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeLoginModal();
+                }
+            });
+            
+            // Close modal on outside click
+            document.getElementById('login-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLoginModal();
+                }
+            });
+            
+            // Mobile menu event listeners
+            document.getElementById('mobile-menu-btn').addEventListener('click', openMobileMenu);
+            document.getElementById('mobile-menu-close').addEventListener('click', closeMobileMenu);
+        });
+    </script>
+    
+</body></html>
